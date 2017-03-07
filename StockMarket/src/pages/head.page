@@ -1,0 +1,30 @@
+<apex:page showHeader="false" standardStylesheets="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false">
+	<meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<!-- Begin Default Content REMOVE THIS -->
+	<apex:stylesheet value="{!URLFOR($Resource.Bootstrap337, 'bootstrap-3.3.7-dist/css/bootstrap.min.css')}"/>
+	<apex:stylesheet value="{!URLFOR($Resource.Bootstrap337, 'bootstrap-3.3.7-dist/css/bootstrap-theme.min.css')}"/>
+	
+	
+	<apex:includeScript value="{!$Resource.JQuery311}" />
+	<apex:includeScript value="{!URLFOR($Resource.Bootstrap337, 'bootstrap-3.3.7-dist/js/bootstrap.min.js')}"/>
+
+	<script type="text/javascript">
+    var j$ = jQuery.noConflict();
+    </script>
+    
+	<apex:includeScript value="/support/api/38.0/interaction.js"/>
+	<apex:includeScript value="/support/console/38.0/integration.js"/>
+	<apex:includeScript value="/soap/ajax/38.0/connection.js"/>
+	<apex:includeScript value="/soap/ajax/38.0/apex.js"/>
+
+	
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	
+</apex:page>

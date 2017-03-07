@@ -1,0 +1,68 @@
+<apex:page standardController="Stock__c">
+	
+	<title>{!Stock__c.Name}</title>
+	<apex:includeScript value="/support/console/38.0/integration.js"/>
+	<apex:includeScript value="{!$Resource.JQuery311}" />
+	<script type="text/javascript">
+		var title = "{!Stock__c.Name}";
+		jQuery.noConflict();
+    	jQuery(document).ready(function(){
+		    if(sforce.console.isInConsole()) {
+			    sforce.console.setTabTitle(title.trim()==""?"新建股票":title);
+			}else{
+			}
+		});
+
+		function CloseTab() {
+		    sforce.console.getEnclosingTabId(closeSubtab);
+		}
+		var closeSubtab = function closeSubtab(result) {
+		    var tabId = result.id;
+		    console.log('tab id:'+tabId);
+		    sforce.console.closeTab(tabId);
+		};
+	</script>
+
+	<apex:form >
+    
+    <apex:pageBlock title="编辑股票">
+    	<apex:messages />
+        <apex:pageBlockSection >
+            <apex:inputField label="股票名称" value="{!Stock__c.Name}"/>   
+            <apex:inputField label="是否抓取" value="{!Stock__c.isGrab__c}"/>         
+        </apex:pageBlockSection>
+        <apex:pageBlockSection >
+            <apex:inputField label="股票代码" value="{!Stock__c.Stock_Code__c}"/>        
+        </apex:pageBlockSection>
+        <apex:pageBlockSection >
+            <apex:inputField label="交易所标识" value="{!Stock__c.Stock_Exchange__c}"/>        
+        </apex:pageBlockSection>
+        <apex:pageBlockSection >
+            <apex:inputField label="是否股指" value="{!Stock__c.Stock_Market_Index__c}"/>        
+        </apex:pageBlockSection>
+
+        <apex:pageBlockButtons >
+		<apex:commandButton value="保存" action="{!save}" id="saveButton" />
+		<apex:commandButton value="快速保存" action="{!quicksave}" id="quicksaveButton" />
+		<apex:commandButton value="取消" action="{!cancel}" onclick="CloseTab();return false;" id="cancelButton"/>
+		</apex:pageBlockButtons>
+
+    </apex:pageBlock>
+    
+    </apex:form>
+
+	<!-- <apex:pageBlock tabStyle="Stock__c" title="message" rendered="{!$ObjectType.Stock__c.accessible}">
+	<p>This text will display if you can see the Lead object.</p>
+	</apex:pageBlock>
+	<apex:pageBlock tabStyle="Stock__c" title="message"  rendered="NOT({!$ObjectType.Stock__c.accessible})">
+	<p>Sorry, but you cannot see the data because you do not have access to the Lead
+	object.</p>
+	</apex:pageBlock> -->
+
+	<apex:detail />
+
+	<apex:pageBlock title="详细信息">
+	<apex:detail relatedList="false" title="false" inlineEdit="true"/>
+	</apex:pageBlock>
+    
+</apex:page>

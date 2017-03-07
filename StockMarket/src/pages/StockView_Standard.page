@@ -1,0 +1,85 @@
+<apex:page standardController="Stock__c" recordSetVar="stocks">
+
+<apex:includeScript value="/support/api/38.0/interaction.js"/>
+<apex:includeScript value="/support/console/38.0/integration.js"/>
+<apex:includeScript value="/soap/ajax/38.0/connection.js"/>
+<apex:includeScript value="/soap/ajax/38.0/apex.js"/>
+<apex:includeScript value="{!$Resource.JQuery311}" />
+
+<script type="text/javascript">
+	var j$ = jQuery.noConflict();
+	j$(document).ready(function(){
+	    if(sforce.console.isInConsole()) {
+		    sforce.console.setTabTitle("股票市场Std");
+		}else{
+		}
+	});
+</script>
+<br/>
+<br/>
+<apex:pageBlock title="Hello {!$User.FirstName}!">
+	欢迎光临！&nbsp;
+	<apex:outputLink value="{!URLFOR($Action.Stock__c.New)}">新建</apex:outputLink>&nbsp;
+	<apex:outputLink value="/apex/Test">MyNew</apex:outputLink>
+</apex:pageBlock>
+
+<apex:form >
+	<apex:pageBlock id="stock_list">
+		<apex:pageBlockTable value="{!stocks}" var="s">
+		 <apex:column >
+		 	<apex:outputLink value="/apex/Test?id={!s.Id}">MyEdit</apex:outputLink>&nbsp;
+	        <apex:outputLink value="{! URLFOR($Action.Stock__c.Edit, s.Id) }">编辑</apex:outputLink>&nbsp;
+	        <apex:outputLink value="{! URLFOR($Action.Stock__c.Delete, s.Id) }">删除</apex:outputLink>&nbsp;
+	        <apex:outputLink value="{!URLFOR($Action.Stock__c.View, s.Id)}">查看</apex:outputLink>&nbsp;
+			<apex:outputLink value="{!URLFOR($Action.Stock__c.Clone, s.Id)}">克隆</apex:outputLink>&nbsp;
+	        <apex:facet name="header">操作</apex:facet>
+	    </apex:column>
+		<apex:column value="{!s.Name}"></apex:column>
+		<apex:column value="{!s.isGrab__c}"/>
+		<apex:column value="{!s.Stock_Code__c}"/>
+		<apex:column value="{!s.Stock_Exchange__c}"/>
+		<apex:column value="{!s.Stock_Market_Index__c}"/>
+		<apex:column value="{!s.Stock_Full_Name__c}"/>
+		<!-- <apex:inlineEditSupport event="ondblClick"/> -->
+		</apex:pageBlockTable>
+		<table style="width: 100%"><tr>
+
+		    <td>
+		        Page: <apex:outputText value=" {!PageNumber} of {! CEILING(ResultSize / PageSize) }"/>
+		    </td>            
+
+		    <td align="center">
+		        <!-- Previous page -->
+				<!-- active -->
+				<apex:commandLink action="{! Previous }" value="« Previous" rendered="{! HasPrevious }"/>
+				<!-- inactive (no earlier pages) -->
+				<apex:outputText style="color: #ccc;" value="« Previous" rendered="{! NOT(HasPrevious) }"/>
+				&nbsp;&nbsp;  
+				<!-- Next page -->
+				<!-- active -->
+				<apex:commandLink action="{! Next }" value="Next »" rendered="{! HasNext }"/>
+				<!-- inactive (no more pages) -->
+				<apex:outputText style="color: #ccc;" value="Next »" rendered="{! NOT(HasNext) }"/>
+		    </td>
+		    
+		    <td align="right">
+		        Records per page:
+				<apex:selectList value="{! PageSize }" size="1">
+				    <apex:selectOption itemValue="5" itemLabel="5"/>
+				    <apex:selectOption itemValue="10" itemLabel="10"/>
+				    <apex:selectOption itemValue="20" itemLabel="20"/>
+				    <apex:actionSupport event="onchange" reRender="stock_list"/>
+				</apex:selectList>
+		    </td>
+
+		</tr></table>
+
+		<apex:pageBlockButtons >
+			<apex:commandButton value="New" action="{!URLFOR($Action.Stock__c.New)}" id="newButton" />
+			<apex:commandButton value="MyNew" action="/apex/Test" id="myNewButton"/>
+		</apex:pageBlockButtons>
+
+	</apex:pageBlock>
+</apex:form>
+
+</apex:page>

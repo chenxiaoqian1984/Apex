@@ -1,0 +1,20 @@
+<apex:page standardController="Stock__c">
+  <!-- Begin Default Content REMOVE THIS -->
+  <h1>Hi,{!$User.FirstName}</h1>
+  This is your new Page
+  <apex:messages />
+  <apex:form >
+  <apex:PageBlock >
+  
+  <apex:pageBlockButtons >
+  <apex:commandButton action="{!List}" value="Stock List" />
+  <apex:commandButton action="{!save}" value="Stock Save" />
+<apex:commandLink action="{!view}" value="查看"/>
+<apex:outputLink value="/apex/StockView"> StockView </apex:outputLink>
+<apex:outputLink value="/apex/StockView_Standard"> StockViewStd </apex:outputLink>
+<a href="StockView" target="_blank">test</a>
+<apex:commandButton action="{!edit}" value="Stock Edit" />
+</apex:pageBlockButtons>
+</apex:PageBlock></apex:form>
+
+</apex:page>
